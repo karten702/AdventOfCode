@@ -16,9 +16,9 @@ namespace AdventOfCode
 
             switch (year)
             {
-                //case 2015:
-                //    new Y2015.Year2015(day);
-                //    break;
+                case 2015:
+                    new Y2015.Year2015(day);
+                    break;
                 //case 2016:
                 //    new Y2016.Year2016(day);
                 //    break;

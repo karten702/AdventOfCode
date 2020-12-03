@@ -10,9 +10,9 @@ namespace AdventOfCode.Y2015
         {
             switch (day)
             {
-                //case 1:
-                //    Day01.Solution.Run();
-                //    break;
+                case 1:
+                    Day01.Solution.Run();
+                    break;
                 //case 2:
                 //    Day02.Solution.Run();
                 //    break;
