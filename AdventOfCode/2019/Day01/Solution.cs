@@ -9,8 +9,8 @@ namespace AdventOfCode.Y2019.Day01 {
      
     class Solution{
 
-        public static string[] Input =>
-              InputHelper.GetInput(2019, 01).ToArray();
+        public static List<decimal> Input =>
+              InputHelper.GetInput(2019, 01).Select(decimal.Parse).ToList();
 
         public static void Run(){
             Console.WriteLine("Part 1:");
@@ -19,14 +19,32 @@ namespace AdventOfCode.Y2019.Day01 {
             Console.WriteLine("Part 2:");
             Console.WriteLine(Part2());
         }
-        public static bool Part1()
+        public static decimal Part1()
         {
-            return true;
+            decimal total = 0;
+            foreach (decimal module in Input)
+            {
+                total += Math.Floor(module / 3) - 2;
+            }
+            return total;
         }
 
-        public static bool Part2()
+        public static decimal Part2()
         {
-            return true;
+            decimal total = 0;
+            foreach (decimal module in Input)
+            {
+                decimal ModuleTotal = 0;
+                decimal required = module;
+                while(required > 0)
+                {
+                    required = Math.Floor(required / 3) - 2;
+                    if(required > 0)
+                        ModuleTotal += required;
+                }
+                total += ModuleTotal;
+            }
+            return total;
         }
     }
 }
