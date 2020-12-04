@@ -97,7 +97,7 @@ namespace AdventOfCode
 
                 string input = Console.ReadLine();
 
-                if (int.TryParse(input, out int year) && Array.IndexOf(Constants.AvailableYears, year) > 0)
+                if (int.TryParse(input, out int year) && Array.IndexOf(Constants.AvailableYears, year) >= 0)
                 {
                     return year;
                 }
