@@ -19,9 +19,9 @@ namespace AdventOfCode.Y2019
                 case 3:
                     Day03.Solution.Run();
                     break;
-                //case 4:
-                //    Day04.Solution.Run();
-                //    break;
+                case 4:
+                    Day04.Solution.Run();
+                    break;
                 //case 5:
                 //    Day05.Solution.Run();
                 //    break;
