@@ -40,10 +40,10 @@ namespace AdventOfCode.Y2020.Day05 {
                 switch (input[i])
                 {
                     case 'F':
-                        maxRow = (int)Math.Floor((minRow + maxRow) / 2.0);
+                        maxRow = (minRow + maxRow) / 2;
                         break;
                     case 'B':
-                        minRow = (int)Math.Floor((minRow + maxRow) / 2.0) + 1;
+                        minRow = ((minRow + maxRow) / 2) + 1;
                         break;
                 }
             }
