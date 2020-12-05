@@ -9,8 +9,8 @@ namespace AdventOfCode.Y2020.Day05 {
      
     class Solution{
 
-        public static string[] Input =>
-              InputHelper.GetInput(2020, 05).ToArray();
+        public static List<string> Input =>
+              InputHelper.GetInput(2020, 05);
 
         public static void Run(){
             Console.WriteLine("Part 1:");
@@ -19,14 +19,51 @@ namespace AdventOfCode.Y2020.Day05 {
             Console.WriteLine("Part 2:");
             Console.WriteLine(Part2());
         }
-        public static bool Part1()
+        public static int Part1()
         {
-            return true;
+            return Input.Select(b => CalculateSeat(b, 128, 8)).Max();
         }
 
-        public static bool Part2()
+        public static int Part2()
         {
-            return true;
+            List<int> seatIds = Input.Select(b => CalculateSeat(b, 128, 8)).ToList();
+            return Enumerable.Range(0, seatIds.Max()).Except(seatIds).Max();
+        }
+
+        public static int CalculateSeat(string input, int rows, int columns)
+        {
+            int minRow = 0;
+            int maxRow = rows - 1;
+
+            for (int i = 0; i < 7; i++)
+            {
+                switch (input[i])
+                {
+                    case 'F':
+                        maxRow = (int)Math.Floor((minRow + maxRow) / 2.0);
+                        break;
+                    case 'B':
+                        minRow = (int)Math.Floor((minRow + maxRow) / 2.0) + 1;
+                        break;
+                }
+            }
+
+            int minCol = 0;
+            int maxCol = columns - 1;
+            for (int i = 7; i < input.Length; i++)
+            {
+                switch (input[i])
+                {
+                    case 'R':
+                        minCol = (int)Math.Floor((minCol + maxCol) / 2.0 + 1);
+                        break;
+                    case 'L':
+                        maxCol = (int)Math.Floor((minCol + maxCol) / 2.0);
+                        break;
+                }
+            }
+
+            return (minRow * columns) + minCol;
         }
     }
 }
