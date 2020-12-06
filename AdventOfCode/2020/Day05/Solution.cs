@@ -55,10 +55,10 @@ namespace AdventOfCode.Y2020.Day05 {
                 switch (input[i])
                 {
                     case 'R':
-                        minCol = (int)Math.Floor((minCol + maxCol) / 2.0 + 1);
+                        minCol = ((minCol + maxCol) / 2) + 1;
                         break;
                     case 'L':
-                        maxCol = (int)Math.Floor((minCol + maxCol) / 2.0);
+                        maxCol = (minCol + maxCol) / 2;
                         break;
                 }
             }
