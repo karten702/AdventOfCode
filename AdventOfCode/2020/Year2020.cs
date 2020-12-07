@@ -28,9 +28,9 @@ namespace AdventOfCode.Y2020
                 case 6:
                     Day06.Solution.Run();
                     break;
-                //case 7:
-                //    Day07.Solution.Run();
-                //    break;
+                case 7:
+                    Day07.Solution.Run();
+                    break;
                 //case 8:
                 //    Day08.Solution.Run();
                 //    break;
