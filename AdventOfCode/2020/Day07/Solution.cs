@@ -47,7 +47,7 @@ namespace AdventOfCode.Y2020.Day07
 
         public static int FindContents(List<Bag> bags, HashSet<string> foundBags, string colorToFind)
         {
-            List<Bag> containsColor = bags.Where(b => b.specification.ContainsKey(colorToFind) && !foundBags.Contains(b.Color)).ToList();            
+            List<Bag> containsColor = bags.Where(b => b.specification.ContainsKey(colorToFind) && !foundBags.Contains(b.Color)).ToList();
             foundBags.Add(colorToFind);
             foreach (var item in containsColor)
             {

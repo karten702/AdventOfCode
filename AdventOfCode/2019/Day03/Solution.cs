@@ -30,13 +30,13 @@ namespace AdventOfCode.Y2019.Day03
             List<int> distancesToCentre = new List<int>();
             foreach (var intersect in intersects)
             {
-                distancesToCentre.Add(ManhattanDistance(intersect, (0, 0)));
+                distancesToCentre.Add(ManhattanDistance(intersect));
             }
             return distancesToCentre.Min();
         }
 
-        static int ManhattanDistance((int x, int y) point1, (int x, int y) point2)
-            => Math.Abs(point1.x - point2.x) + Math.Abs(point1.y - point2.y);
+        static int ManhattanDistance(Point point1)
+            => Math.Abs(point1.X) + Math.Abs(point1.Y);
 
         public static int Part2()
         {
@@ -53,28 +53,28 @@ namespace AdventOfCode.Y2019.Day03
             return distancesTaken.Min();
         }
 
-        static List<(int x, int y)> DeterminePoints(string input)
+        static List<Point> DeterminePoints(string input)
         {
-            var points = new List<(int x, int y)>();
+            var points = new List<Point>();
             var path = input.Split(',');
 
-            var stats = (x:0, y:0);
+            var stats = new Point(x:0, y:0);
             foreach (var instruction in path)
             {
-                var Move = (x:0, y:0);
+                var Move = new Point(x:0, y:0);
                 switch (instruction[0])
                 {
                     case 'U':
-                        Move = (0, 1);
+                        Move = new Point(0, 1);
                         break;
                     case 'D':
-                        Move = (0, -1);
+                        Move = new Point(0, -1);
                         break;
                     case 'R':
-                        Move = (1, 0);
+                        Move = new Point(1, 0);
                         break;
                     case 'L':
-                        Move = (-1, 0);
+                        Move = new Point(-1, 0);
                         break;
                     default:
                         break;
@@ -83,11 +83,34 @@ namespace AdventOfCode.Y2019.Day03
                 int amount = int.Parse(instruction.Substring(1));
                 for (int i = 0; i < amount; i++)
                 {
-                    stats = (stats.x + Move.x, stats.y + Move.y);
+                    stats = new Point(stats.X + Move.X, stats.Y + Move.Y);
                     points.Add(stats);
                 }
             }
             return points;
         }
+    }
+
+    class Point : IEquatable<Point>
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public bool Equals(Point other)
+        {
+            if (other is null)
+                return false;
+
+            return X == other.X && Y == other.Y;
+        }
+
+        public override bool Equals(object obj) => Equals(obj as Point);
+        public override int GetHashCode() => (X, Y).GetHashCode();
     }
 }
