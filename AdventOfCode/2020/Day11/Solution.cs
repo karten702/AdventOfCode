@@ -41,7 +41,7 @@ namespace AdventOfCode.Y2020.Day11
             var grid = BuildArr(Input);
             int maxX = grid.GetLength(1);
             int maxY = grid.GetLength(0);
-            
+
             var resulting = grid.Clone() as char[,];
             var lastGrid = grid.Clone() as char[,];
             int numberOfIterations = 0;
@@ -104,25 +104,12 @@ namespace AdventOfCode.Y2020.Day11
 
         private static char SetThing(char[,] grid, int y, int x, int tolerancy, List<char> results)
         {
-            switch (grid[y, x])
+            return (grid[y, x]) switch
             {
-                case 'L':
-                    if (!results.Any(x => x == '#'))
-                    {
-                        return '#';
-                    }
-                    break;
-                case '#':
-                    if (results.Count(x => x == '#') >= tolerancy)
-                    {
-                        return 'L';
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-            return grid[y, x];
+                'L' => results.Any(x => x == '#') ? grid[y, x] : '#',
+                '#' => results.Count(x => x == '#') >= tolerancy ? grid[y, x] : 'L',
+                _ => grid[y,x]
+            };
         }
 
         private static char[,] BuildArr(List<string> input)
@@ -140,10 +127,11 @@ namespace AdventOfCode.Y2020.Day11
             return grid;
         }
 
+        static List<(int y, int x)> directions = new List<(int y, int x)>() { (0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, 1), (1, -1), (-1, -1) };
+
         private static List<char> GetAdjacentPart2(char[,] grid, int y, int x, int maxY, int maxX)
         {
             List<char> result = new List<char>(8);
-            List<(int y, int x)> directions = new List<(int y, int x)>() { (0,1), (0,-1), (1,0), (-1,0), (1,1), (-1,1), (1,-1), (-1,-1)};
             foreach (var direction in directions)
             {
                 int dirY = y;
@@ -171,15 +159,13 @@ namespace AdventOfCode.Y2020.Day11
         private static List<char> GetAdjacent(char[,] grid, int y, int x, int maxY, int maxX)
         {
             List<char> result = new List<char>(8);
-            for (int dy = (y > 0 ? -1 : 0); dy <= (y < maxY ? 1 : 0); ++dy)
+            foreach (var direction in directions)
             {
-                for (int dx = (x > 0 ? -1 : 0); dx <= (x < maxX ? 1 : 0); ++dx)
+                int dirY = y + direction.y;
+                int dirX = x + direction.x;
+                if (dirX >= 0 && dirY >= 0 && dirX < maxX && dirY < maxY)
                 {
-                    if (dy != 0 || dx != 0)
-                    {
-                        if(y + dy < maxY && x + dx < maxX)
-                            result.Add(grid[y + dy, x + dx]);
-                    }
+                    result.Add(grid[dirY, dirX]);
                 }
             }
             return result;
