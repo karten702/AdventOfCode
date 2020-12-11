@@ -107,7 +107,7 @@ namespace AdventOfCode.Y2020.Day11
             return (grid[y, x]) switch
             {
                 'L' => results.Any(x => x == '#') ? grid[y, x] : '#',
-                '#' => results.Count(x => x == '#') >= tolerancy ? grid[y, x] : 'L',
+                '#' => results.Count(x => x == '#') >= tolerancy ? 'L' : grid[y, x],
                 _ => grid[y,x]
             };
         }
