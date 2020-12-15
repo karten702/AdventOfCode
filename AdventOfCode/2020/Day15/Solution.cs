@@ -9,8 +9,9 @@ namespace AdventOfCode.Y2020.Day15 {
      
     class Solution{
 
-        public static string[] Input =>
-              InputHelper.GetInput(2020, 15).ToArray();
+        public static List<int> Input =>
+              InputHelper.GetInput(2020, 15)[0].Split(',').Select(int.Parse).ToList();
+        public static List<int> Test = new List<int>() { 3,1,2 };
 
         public static void Run(){
             Console.WriteLine("Part 1:");
@@ -19,14 +20,37 @@ namespace AdventOfCode.Y2020.Day15 {
             Console.WriteLine("Part 2:");
             Console.WriteLine(Part2());
         }
-        public static bool Part1()
-        {
-            return true;
+        public static int Part1()
+        {  
+            return GetLastNumber(Input, 2020);
         }
 
-        public static bool Part2()
+        public static int Part2()
         {
-            return true;
+            return GetLastNumber(Input, 30000000);
+        }
+
+        public static int GetLastNumber(List<int> game, int turncount)
+        {
+            Dictionary<int, int> gamemap = new Dictionary<int, int>();
+            for (int i = 0; i < game.Count - 1; i++)
+            {
+                gamemap.Add(game[i], i + 1);
+            }
+
+            int last = game[game.Count - 1];
+
+            for (int turn = game.Count + 1; turn <= turncount; turn++)
+            {
+                int next;
+                if (gamemap.ContainsKey(last))
+                    next = turn - 1 - gamemap[last];
+                else
+                    next = 0;
+                gamemap[last] = turn - 1;
+                last = next;
+            }
+            return last;
         }
     }
 }
