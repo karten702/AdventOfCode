@@ -21,8 +21,8 @@ namespace AdventOfCode.Helpers
                  |     
                  |    class Solution{{
                  |
-                 |        public static string[] Input =>
-                 |              InputHelper.GetInput({year}, {day}).ToArray();
+                 |        public static List<string> Input =>
+                 |              InputHelper.GetInput({year}, {day});
                  |
                  |        public static void Run(){{
                  |            Console.WriteLine(""Part 1:"");
